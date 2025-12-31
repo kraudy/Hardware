@@ -1,0 +1,161 @@
+// Verilated -*- C++ -*-
+// DESCRIPTION: Verilator output: Design implementation internals
+// See VandGate.h for the primary calling header
+
+#include "VandGate__pch.h"
+
+VL_ATTR_COLD void VandGate___024root___eval_static(VandGate___024root* vlSelf) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VandGate___024root___eval_static\n"); );
+    VandGate__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    auto& vlSelfRef = std::ref(*vlSelf).get();
+    // Body
+    vlSelfRef.top__DOT__a = 0U;
+    vlSelfRef.top__DOT__b = 0U;
+}
+
+VL_ATTR_COLD void VandGate___024root___eval_static__TOP(VandGate___024root* vlSelf) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VandGate___024root___eval_static__TOP\n"); );
+    VandGate__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    auto& vlSelfRef = std::ref(*vlSelf).get();
+    // Body
+    vlSelfRef.top__DOT__a = 0U;
+    vlSelfRef.top__DOT__b = 0U;
+}
+
+VL_ATTR_COLD void VandGate___024root___eval_final(VandGate___024root* vlSelf) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VandGate___024root___eval_final\n"); );
+    VandGate__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    auto& vlSelfRef = std::ref(*vlSelf).get();
+}
+
+#ifdef VL_DEBUG
+VL_ATTR_COLD void VandGate___024root___dump_triggers__stl(const VlUnpacked<QData/*63:0*/, 1> &triggers, const std::string &tag);
+#endif  // VL_DEBUG
+VL_ATTR_COLD bool VandGate___024root___eval_phase__stl(VandGate___024root* vlSelf);
+
+VL_ATTR_COLD void VandGate___024root___eval_settle(VandGate___024root* vlSelf) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VandGate___024root___eval_settle\n"); );
+    VandGate__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    auto& vlSelfRef = std::ref(*vlSelf).get();
+    // Locals
+    IData/*31:0*/ __VstlIterCount;
+    // Body
+    __VstlIterCount = 0U;
+    vlSelfRef.__VstlFirstIteration = 1U;
+    do {
+        if (VL_UNLIKELY(((0x00000064U < __VstlIterCount)))) {
+#ifdef VL_DEBUG
+            VandGate___024root___dump_triggers__stl(vlSelfRef.__VstlTriggered, "stl"s);
+#endif
+            VL_FATAL_MT("andGate.v", 13, "", "Settle region did not converge after 100 tries");
+        }
+        __VstlIterCount = ((IData)(1U) + __VstlIterCount);
+    } while (VandGate___024root___eval_phase__stl(vlSelf));
+}
+
+VL_ATTR_COLD void VandGate___024root___eval_triggers__stl(VandGate___024root* vlSelf) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VandGate___024root___eval_triggers__stl\n"); );
+    VandGate__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    auto& vlSelfRef = std::ref(*vlSelf).get();
+    // Body
+    vlSelfRef.__VstlTriggered[0U] = ((0xfffffffffffffffeULL 
+                                      & vlSelfRef.__VstlTriggered
+                                      [0U]) | (IData)((IData)(vlSelfRef.__VstlFirstIteration)));
+    vlSelfRef.__VstlFirstIteration = 0U;
+#ifdef VL_DEBUG
+    if (VL_UNLIKELY(vlSymsp->_vm_contextp__->debug())) {
+        VandGate___024root___dump_triggers__stl(vlSelfRef.__VstlTriggered, "stl"s);
+    }
+#endif
+}
+
+VL_ATTR_COLD bool VandGate___024root___trigger_anySet__stl(const VlUnpacked<QData/*63:0*/, 1> &in);
+
+#ifdef VL_DEBUG
+VL_ATTR_COLD void VandGate___024root___dump_triggers__stl(const VlUnpacked<QData/*63:0*/, 1> &triggers, const std::string &tag) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VandGate___024root___dump_triggers__stl\n"); );
+    // Body
+    if ((1U & (~ (IData)(VandGate___024root___trigger_anySet__stl(triggers))))) {
+        VL_DBG_MSGS("         No '" + tag + "' region triggers active\n");
+    }
+    if ((1U & (IData)(triggers[0U]))) {
+        VL_DBG_MSGS("         '" + tag + "' region trigger index 0 is active: Internal 'stl' trigger - first iteration\n");
+    }
+}
+#endif  // VL_DEBUG
+
+VL_ATTR_COLD bool VandGate___024root___trigger_anySet__stl(const VlUnpacked<QData/*63:0*/, 1> &in) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VandGate___024root___trigger_anySet__stl\n"); );
+    // Locals
+    IData/*31:0*/ n;
+    // Body
+    n = 0U;
+    do {
+        if (in[n]) {
+            return (1U);
+        }
+        n = ((IData)(1U) + n);
+    } while ((1U > n));
+    return (0U);
+}
+
+VL_ATTR_COLD void VandGate___024root___eval_stl(VandGate___024root* vlSelf) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VandGate___024root___eval_stl\n"); );
+    VandGate__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    auto& vlSelfRef = std::ref(*vlSelf).get();
+    // Body
+    if ((1ULL & vlSelfRef.__VstlTriggered[0U])) {
+        vlSelfRef.top__DOT__y = ((IData)(vlSelfRef.top__DOT__a) 
+                                 & (IData)(vlSelfRef.top__DOT__b));
+    }
+}
+
+VL_ATTR_COLD bool VandGate___024root___eval_phase__stl(VandGate___024root* vlSelf) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VandGate___024root___eval_phase__stl\n"); );
+    VandGate__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    auto& vlSelfRef = std::ref(*vlSelf).get();
+    // Locals
+    CData/*0:0*/ __VstlExecute;
+    // Body
+    VandGate___024root___eval_triggers__stl(vlSelf);
+    __VstlExecute = VandGate___024root___trigger_anySet__stl(vlSelfRef.__VstlTriggered);
+    if (__VstlExecute) {
+        VandGate___024root___eval_stl(vlSelf);
+    }
+    return (__VstlExecute);
+}
+
+bool VandGate___024root___trigger_anySet__act(const VlUnpacked<QData/*63:0*/, 1> &in);
+
+#ifdef VL_DEBUG
+VL_ATTR_COLD void VandGate___024root___dump_triggers__act(const VlUnpacked<QData/*63:0*/, 1> &triggers, const std::string &tag) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VandGate___024root___dump_triggers__act\n"); );
+    // Body
+    if ((1U & (~ (IData)(VandGate___024root___trigger_anySet__act(triggers))))) {
+        VL_DBG_MSGS("         No '" + tag + "' region triggers active\n");
+    }
+    if ((1U & (IData)(triggers[0U]))) {
+        VL_DBG_MSGS("         '" + tag + "' region trigger index 0 is active: @([true] __VdlySched.awaitingCurrentTime())\n");
+    }
+}
+#endif  // VL_DEBUG
+
+VL_ATTR_COLD void VandGate___024root___ctor_var_reset(VandGate___024root* vlSelf) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VandGate___024root___ctor_var_reset\n"); );
+    VandGate__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    auto& vlSelfRef = std::ref(*vlSelf).get();
+    // Body
+    const uint64_t __VscopeHash = VL_MURMUR64_HASH(vlSelf->vlNamep);
+    vlSelf->top__DOT__a = VL_SCOPED_RAND_RESET_I(1, __VscopeHash, 13394877895942293449ull);
+    vlSelf->top__DOT__b = VL_SCOPED_RAND_RESET_I(1, __VscopeHash, 10040169573526154973ull);
+    vlSelf->top__DOT__y = VL_SCOPED_RAND_RESET_I(1, __VscopeHash, 11261967329568811419ull);
+    for (int __Vi0 = 0; __Vi0 < 1; ++__Vi0) {
+        vlSelf->__VstlTriggered[__Vi0] = 0;
+    }
+    for (int __Vi0 = 0; __Vi0 < 1; ++__Vi0) {
+        vlSelf->__VactTriggered[__Vi0] = 0;
+    }
+    for (int __Vi0 = 0; __Vi0 < 1; ++__Vi0) {
+        vlSelf->__VnbaTriggered[__Vi0] = 0;
+    }
+}
