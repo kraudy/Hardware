@@ -57,6 +57,16 @@ verilator --cc --exe --build --main --timing -j 1 xnorGate.v
 
 You can actually create C++ main function for tests. Maybe later
 
+### Half adder
+
+To simulate the add operation on bits, the XOR gate is used. Its true table correctly representes the sum of values (0,0), (0,1), (1,0) and for the case (1,1) and AND gate is used in conjunction to get the the carry bit 
+
+XOR (1, 1) = 0 => Sum
+AND (1, 1) = 1 => Carry
++           10
+
+For all other states, only XOR is neccesary
+
 
 ## Path
 
