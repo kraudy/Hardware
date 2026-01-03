@@ -59,11 +59,11 @@ You can actually create C++ main function for tests. Maybe later
 
 ### Half adder
 
-To simulate the add operation on bits, the XOR gate is used. Its true table correctly representes the sum of values (0,0), (0,1), (1,0) and for the case (1,1) and AND gate is used in conjunction to get the the carry bit 
+To simulate the add operation on bits, the XOR gate is used. Its true table correctly representes the sum of values (0,0), (0,1), (1,0) and for the case (1,1) an AND gate is used in conjunction to get the the carry bit 
 
 XOR (1, 1) = 0 => Sum
 AND (1, 1) = 1 => Carry
-+           10
+             10
 
 For all other states, only XOR is neccesary
 
@@ -71,7 +71,14 @@ For all other states, only XOR is neccesary
 ## Path
 
 * Gates
-* Adder
+* Half Adder
+* Full Adder
 * Multiplexer
 * Memory (SRAM)
 * LTU
+
+* CPU
+* Assembler
+* Kernel module
+* TPU
+* ML training

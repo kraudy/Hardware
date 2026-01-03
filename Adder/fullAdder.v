@@ -14,6 +14,14 @@
 
 // verilator lint_off UNOPTFLAT
 
+module or_gate (
+    input  wire a,
+    input  wire b,
+    output wire y
+);
+    assign y = (a | b); 
+endmodule
+
 module xor_gate (
     input  wire a,
     input  wire b,
@@ -30,37 +38,42 @@ module and_gate (
     assign y = (a & b);  // Continuous assignment for combinational logic
 endmodule
 
-module or_gate_3i ( // 3 input OR Gate for carry out
-    input  wire a,
-    input  wire b,
-    input  wire c,
-    output wire y
+module half_adder (
+  input   wire a,
+  input   wire b,
+  output  wire sum,
+  output  wire cout
 );
-    assign y = (a | b | c); // Bitwise or
+
+  // Instantiate gates
+  xor_gate xor1 (.a(a), .b(b), .y(sum));
+
+  and_gate and1 (.a(a), .b(b), .y(cout));
+
 endmodule
 
 module full_adder (
     input  wire a,
     input  wire b,
-    input  wire cin,
+    input  wire cin, // A full adder needs an external cin singnal for the second half adder
     output wire sum,
     output wire cout
 );
-    // Intermediate wires
-    wire xor_ab;        // a ^ b
-    wire and_ab;        // a & b
-    wire and_ac;        // a & cin
-    wire and_bc;        // b & cin
+    // Intermediary variable
+    wire half_sum;
 
-    // Instantiate gates
-    xor_gate xor1 (.a(a),    .b(b),   .y(xor_ab));
-    xor_gate xor2 (.a(xor_ab), .b(cin), .y(sum));
+    wire c1;
+    wire c2;
 
-    and_gate and1 (.a(a), .b(b),   .y(and_ab));
-    and_gate and2 (.a(a), .b(cin), .y(and_ac));
-    and_gate and3 (.a(b), .b(cin), .y(and_bc));
+    // half adders
+    // Note how the carries are not fed from one adder to the other
+    half_adder half1 (.a(a), .b(b), .sum(half_sum), .cout(c1));
 
-    or_gate_3i or1 (.a(and_ab), .b(and_ac), .c(and_bc), .y(cout));
+    // fed external cin to the second half adder
+    half_adder half2 (.a(half_sum), .b(cin), .sum(sum), .cout(c2));
+
+    or_gate or1 (.a(c1), .b(c2), .y(cout));
+
 endmodule
 
 module top;
@@ -70,22 +83,25 @@ module top;
 
     wire sum;
     wire cout;
+
     full_adder dut (.a(a), .b(b), .cin(cin), .sum(sum), .cout(cout));
 
     initial begin
-        $display("a b cin | sum cout");
-        $display("--------+---------");
+      $display("a b cin | sum cout");
+      $display("--------+---------");
 
-        a=0; b=0; cin=0; #10 $display("%b %b  %b  |  %b    %b", a, b, cin, sum, cout);
-        a=0; b=0; cin=1; #10 $display("%b %b  %b  |  %b    %b", a, b, cin, sum, cout);
-        a=0; b=1; cin=0; #10 $display("%b %b  %b  |  %b    %b", a, b, cin, sum, cout);
-        a=0; b=1; cin=1; #10 $display("%b %b  %b  |  %b    %b", a, b, cin, sum, cout);
-        a=1; b=0; cin=0; #10 $display("%b %b  %b  |  %b    %b", a, b, cin, sum, cout);
-        a=1; b=0; cin=1; #10 $display("%b %b  %b  |  %b    %b", a, b, cin, sum, cout);
-        a=1; b=1; cin=0; #10 $display("%b %b  %b  |  %b    %b", a, b, cin, sum, cout);
-        a=1; b=1; cin=1; #10 $display("%b %b  %b  |  %b    %b", a, b, cin, sum, cout);
+      // Test all 8 combinations (now with cin)
+      {a,b,cin}=3'b000; #10 $display("%b %b  %b  |  %b    %b", a, b, cin, sum, cout);
+      {a,b,cin}=3'b001; #10 $display("%b %b  %b  |  %b    %b", a, b, cin, sum, cout);
+      {a,b,cin}=3'b010; #10 $display("%b %b  %b  |  %b    %b", a, b, cin, sum, cout);
+      {a,b,cin}=3'b011; #10 $display("%b %b  %b  |  %b    %b", a, b, cin, sum, cout);
+      {a,b,cin}=3'b100; #10 $display("%b %b  %b  |  %b    %b", a, b, cin, sum, cout);
+      {a,b,cin}=3'b101; #10 $display("%b %b  %b  |  %b    %b", a, b, cin, sum, cout);
+      {a,b,cin}=3'b110; #10 $display("%b %b  %b  |  %b    %b", a, b, cin, sum, cout);
+      {a,b,cin}=3'b111; #10 $display("%b %b  %b  |  %b    %b", a, b, cin, sum, cout);
 
-        #1 $display("Simulation complete!");
-        $finish;
+      #1 $display("Simulation complete!");
+      $finish;
     end
+
 endmodule
