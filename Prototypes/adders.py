@@ -9,3 +9,15 @@ class HalfAdder:
     sum = self.xor1(a, b)
     cout = self.and1(a, b)
     return sum, cout
+  
+class FullAdder:
+  def __init__(self):
+    self.half1 = HalfAdder()
+    self.half2 = HalfAdder()
+    self.or1 = OrGate() # Add the two carries together
+  
+  def __call__(self, a: bool, b: bool, cin: bool) -> tuple[bool, bool]:
+    halfSum, c1 = self.half1(a, b)
+    sum, c2 = self.half2(halfSum, cin)
+    cout = self.or1(c1, c2)
+    return sum, cout
