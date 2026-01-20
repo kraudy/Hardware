@@ -1,4 +1,4 @@
-from adders import HalfAdder, FullAdder
+from operators import HalfAdder, FullAdder, HalfSubstractor
 
 def test_HalfAdder():
   Half1 = HalfAdder()
@@ -35,6 +35,22 @@ def test_FullAdder():
   
   print("test FullAdder successful")
 
+def test_HalfSubstractor():
+  HalfSubs1 = HalfSubstractor()
+
+  truth_table = [
+    (0, 0, 0, 0),
+    (0, 1, 1, 1),
+    (1, 0, 1, 0),
+    (1, 1, 0, 0)
+  ]
+
+  for a, b, diff, borrow in truth_table:
+    assert HalfSubs1(a, b) == (diff, borrow), f"Failed: {a} Half Sub {b} -> {diff},{borrow}"
+  
+  print("test HalfSubstractor successful")
+
 if __name__ == "__main__":
   test_HalfAdder()
   test_FullAdder()
+  test_HalfSubstractor()

@@ -25,3 +25,7 @@ class XnorGate:
 class XorGate:
   def __call__(self, a:bool, b: bool) -> bool:
     return (a ^ b)
+  
+class NotGate:
+  def __call__(self, a:bool) -> bool:
+    return not (a)

@@ -1,9 +1,9 @@
-from gates import AndGate, OrGate, XorGate
+from gates import AndGate, OrGate, XorGate, NotGate
 
 class HalfAdder:
   def __init__(self):
-    self.and1 = AndGate()
     self.xor1 = XorGate()
+    self.and1 = AndGate()
   
   def __call__(self, a: bool, b: bool) -> tuple[bool, bool]:
     sum = self.xor1(a, b)
@@ -21,3 +21,15 @@ class FullAdder:
     sum, c2 = self.half2(halfSum, cin)
     cout = self.or1(c1, c2)
     return sum, cout
+  
+class HalfSubstractor:
+  def __init__(self):
+    self.xor1 = XorGate()
+    self.not1 = NotGate()
+    self.and1 = AndGate()
+
+  def __call__(self, a: bool, b: bool) -> tuple[bool, bool]:
+    diff = self.xor1(a, b)
+    a_inv = self.not1(a)
+    borrow = self.and1(a_inv, b)
+    return diff, borrow
