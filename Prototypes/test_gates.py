@@ -1,4 +1,4 @@
-from gates import AndGate, NandGate, OrGate
+from gates import AndGate, NandGate, OrGate, NorGate, XnorGate, XorGate
 
 def test_AndGate():
   and1 = AndGate()
@@ -45,7 +45,55 @@ def test_OrGate():
   
   print("test OrGate successful")
 
+def test_NorGate():
+  Nor1 = NorGate()
+
+  truth_table = [
+    (0, 0, 1),
+    (0, 1, 0),
+    (1, 0, 0),
+    (1, 1, 0)
+  ]
+
+  for a, b, y in truth_table:
+    assert Nor1(a, b) == y, f"Failed: {a} AND {b} -> {y}"
+  
+  print("test NorGate successful")
+
+def test_XnorGate():
+  Xnor1 = XnorGate()
+
+  truth_table = [
+    (0, 0, 1),
+    (0, 1, 0),
+    (1, 0, 0),
+    (1, 1, 1)
+  ]
+
+  for a, b, y in truth_table:
+    assert Xnor1(a, b) == y, f"Failed: {a} AND {b} -> {y}"
+  
+  print("test XnorGate successful")
+
+def test_XorGate():
+  Xor1 = XorGate()
+
+  truth_table = [
+    (0, 0, 0),
+    (0, 1, 1),
+    (1, 0, 1),
+    (1, 1, 0)
+  ]
+
+  for a, b, y in truth_table:
+    assert Xor1(a, b) == y, f"Failed: {a} AND {b} -> {y}"
+  
+  print("test XorGate successful")
+
 if __name__ == "__main__":
   test_AndGate()
   test_NandGate()
   test_OrGate()
+  test_NorGate()
+  test_XnorGate()
+  test_XorGate()
